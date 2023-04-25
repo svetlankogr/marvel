@@ -16,5 +16,18 @@ export const getAllCharacters = async () => {
 
 export const getCharacterById = async (id) => {
   const { data } = await marvelApi.get(`/characters/${id}`);
-  return data;
+  console.log(data);
+  return transformCharacter(data.data.results[0]);
+};
+
+const transformCharacter = (char) => {
+  return {
+    name: char.name,
+    description: char.description
+      ? `${char.description.slice(0, 210)}...`
+      : "There is no description for this character",
+    thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
+    homepage: char.urls[0].url,
+    wiki: char.urls[1].url,
+  };
 };
