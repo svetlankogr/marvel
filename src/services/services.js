@@ -6,22 +6,24 @@ const marvelApi = axios.create({
   baseURL: "https://gateway.marvel.com:443/v1/public/",
   params: {
     apikey: API_KEY,
+    limit: 9,
+    offset: 210,
   },
 });
 
 export const getAllCharacters = async () => {
   const { data } = await marvelApi.get("/characters");
-  return data;
+  return data.data.results.map(transformCharacter);
 };
 
 export const getCharacterById = async (id) => {
   const { data } = await marvelApi.get(`/characters/${id}`);
-  console.log(data);
   return transformCharacter(data.data.results[0]);
 };
 
 const transformCharacter = (char) => {
   return {
+    id: char.id,
     name: char.name,
     description: char.description
       ? `${char.description.slice(0, 210)}...`
