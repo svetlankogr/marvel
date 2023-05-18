@@ -9,16 +9,36 @@ class CharList extends Component {
     characters: [],
     loading: true,
     error: false,
+    newItemLoading: false,
+    offset: null,
+    charEnded: false,
   };
 
   componentDidMount() {
-    getAllCharacters().then(this.onCharactersLoaded).catch(this.onError);
+    this.onRequest();
   }
+  onRequest = (offset) => {
+    this.onCharListLoading();
+    getAllCharacters(offset).then(this.onCharListLoaded).catch(this.onError);
+  };
 
-  onCharactersLoaded = (characters) => {
-    this.setState({
-      characters,
+  onCharListLoaded = (newCharList) => {
+    let ended = false;
+    if (newCharList.length < 9) {
+      ended = true;
+    }
+    this.setState(({ offset, characters }) => ({
+      characters: [...characters, ...newCharList],
       loading: false,
+      newItemLoading: false,
+      offset: offset + 9,
+      charEnded: ended,
+    }));
+  };
+
+  onCharListLoading = () => {
+    this.setState({
+      newItemLoading: true,
     });
   };
 
@@ -51,7 +71,8 @@ class CharList extends Component {
     return <ul className="char__grid">{items}</ul>;
   }
   render() {
-    const { characters, loading, error } = this.state;
+    const { characters, loading, error, offset, newItemLoading, charEnded } =
+      this.state;
     const itemsList = this.renderItems(characters);
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
@@ -61,7 +82,12 @@ class CharList extends Component {
         {errorMessage}
         {spinner}
         {content}
-        <button className="button button__main button__long">
+        <button
+          className="button button__main button__long"
+          disabled={newItemLoading}
+          style={{ display: charEnded ? "none" : "block" }}
+          onClick={() => this.onRequest(offset)}
+        >
           <div className="inner">load more</div>
         </button>
       </div>

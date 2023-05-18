@@ -7,12 +7,11 @@ const marvelApi = axios.create({
   params: {
     apikey: API_KEY,
     limit: 9,
-    offset: 210,
   },
 });
 
-export const getAllCharacters = async () => {
-  const { data } = await marvelApi.get("/characters");
+export const getAllCharacters = async (offset) => {
+  const { data } = await marvelApi.get(`/characters?offset=${offset}`);
   return data.data.results.map(transformCharacter);
 };
 
