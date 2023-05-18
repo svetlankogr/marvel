@@ -1,17 +1,16 @@
 {
   "files": {
-    "main.css": "/marvel/static/css/main.a821b37d.css",
-    "main.js": "/marvel/static/js/main.567ddc52.js",
+    "main.css": "/marvel/static/css/main.bfe0e721.css",
+    "main.js": "/marvel/static/js/main.b696f27f.js",
     "static/media/vision.png": "/marvel/static/media/vision.067d4ae1936d64a577ce.png",
-    "static/media/thor.jpeg": "/marvel/static/media/thor.533e3a5e127689ab0b1f.jpeg",
-    "static/media/abyss.jpg": "/marvel/static/media/abyss.93d211d37b67a60bace9.jpg",
     "static/media/mjolnir.png": "/marvel/static/media/mjolnir.61f31e1809f12183a524.png",
+    "static/media/error.gif": "/marvel/static/media/error.42292aa12b6bc303ce99.gif",
     "index.html": "/marvel/index.html",
-    "main.a821b37d.css.map": "/marvel/static/css/main.a821b37d.css.map",
-    "main.567ddc52.js.map": "/marvel/static/js/main.567ddc52.js.map"
+    "main.bfe0e721.css.map": "/marvel/static/css/main.bfe0e721.css.map",
+    "main.b696f27f.js.map": "/marvel/static/js/main.b696f27f.js.map"
   },
   "entrypoints": [
-    "static/css/main.a821b37d.css",
-    "static/js/main.567ddc52.js"
+    "static/css/main.bfe0e721.css",
+    "static/js/main.b696f27f.js"
   ]
 }
