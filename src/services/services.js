@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "4e6a7a291f59592e86a9f346674dde5a";
+const API_KEY = "a8a46741ba8bb1eb05cc87c982c1aa61";
 
 const marvelApi = axios.create({
   baseURL: "https://gateway.marvel.com:443/v1/public/",
@@ -20,6 +20,18 @@ export const getCharacterById = async (id) => {
   return transformCharacter(data.data.results[0]);
 };
 
+export const getAllComics = async (offset) => {
+  const { data } = await marvelApi.get(
+    `/comics?orderBy=issueNumber&limit=8&offset=${offset}`
+  );
+  return data.data.results.map(transformComics);
+};
+
+export const getAllComicsId = async (id) => {
+  const { data } = await marvelApi.get(`/comics/${id}`);
+  return transformComics(data.data.results[0]);
+};
+
 const transformCharacter = (char) => {
   return {
     id: char.id,
@@ -31,5 +43,21 @@ const transformCharacter = (char) => {
     homepage: char.urls[0].url,
     wiki: char.urls[1].url,
     comics: char.comics.items,
+  };
+};
+
+const transformComics = (comics) => {
+  return {
+    id: comics.id,
+    title: comics.title,
+    description: comics.description || "There is no description",
+    pageCount: comics.pageCount
+      ? `${comics.pageCount} p.`
+      : "No information about the number of pages",
+    thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+    language: comics.textObjects[0]?.language || "en-us",
+    price: comics.prices[0].price
+      ? `${comics.prices[0].price}$`
+      : "not available",
   };
 };
