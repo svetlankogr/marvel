@@ -27,7 +27,7 @@ export const getAllComics = async (offset) => {
   return data.data.results.map(transformComics);
 };
 
-export const getAllComicsId = async (id) => {
+export const getComicById = async (id) => {
   const { data } = await marvelApi.get(`/comics/${id}`);
   return transformComics(data.data.results[0]);
 };
