@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./randomChar.scss";
 import mjolnir from "../../resources/img/mjolnir.png";
 import Spinner from "../Spinner/Spinner";
@@ -30,8 +30,10 @@ const RandomChar = () => {
     setLoading(false);
     setError(true);
   };
+  const clearError = useCallback(() => setError(null), []);
 
   const updateChar = () => {
+    clearError();
     onCharLoading();
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
     getCharacterById(id).then(onCharLoaded).catch(onError);

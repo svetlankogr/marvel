@@ -2,14 +2,8 @@ import { Link } from "react-router-dom";
 
 import "./singleComic.scss";
 
-const SingleComic = ({
-  title,
-  description,
-  pageCount,
-  thumbnail,
-  language,
-  price,
-}) => {
+const SingleComic = ({ data }) => {
+  const { title, description, pageCount, thumbnail, language, price } = data;
   return (
     <div className="single-comic">
       <img src={thumbnail} alt={title} className="single-comic__img" />

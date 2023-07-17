@@ -20,6 +20,11 @@ export const getCharacterById = async (id) => {
   return transformCharacter(data.data.results[0]);
 };
 
+export const getCharacterByName = async (name) => {
+  const { data } = await marvelApi.get(`/characters?name=${name}`);
+  return data.data.results.map(transformCharacter);
+};
+
 export const getAllComics = async (offset) => {
   const { data } = await marvelApi.get(
     `/comics?orderBy=issueNumber&limit=8&offset=${offset}`
